@@ -45,9 +45,40 @@
         // value: integer (1000 = 1 seg), default to 2000 (2segs)< });
 });
     
-$('#timeline').css("height", $(document).height()-200);
-$('#issues li').css("height", $(document).height()-200);
-$('#issues li img').css("height", $(document).height()-200);
+
+//$('#issues li img').css("height", $(document).height()-200);
+// var ar = $('.scrollBtn img');
+// function pulsate(){ 
+//   ar.animate({width:'+=2'},500,function(){
+//     ar.animate({width:'-=2'},500,pulsate);
+//   });
+// }
+// pulsate();
+
+$('#issues li img').css("height", "initial");
+
+// http://stackoverflow.com/questions/25935686/modernizr-media-query-doesn-t-work-when-resize-browser
+
+        // Call on every window resize
+        $(window).resize(function(){
+            if (Modernizr.mq('(max-width: 1200px)')) {
+                
+               $('#timeline').css("height", $(document).height()-1025);
+               $('#issues li').css("height", $(document).height()-1025);
+               $('.sidebar-footer').hide();
+               $('.footer').show();
+            } else {
+                // Clear the settings etc
+
+               $('#timeline').css("height", $(document).height()-200);
+               $('#issues li').css("height", $(document).height()-200);
+               $('.sidebar-footer').show();
+               $('.footer').hide();
+               $('h1.mobile').hide();
+            }
+        }).resize();   // Cause an initial widow.resize to occur
+
+
 
 }(jQuery));
 
@@ -58,3 +89,4 @@ $('#show-more').click(function(e){
     $(this).text( $(this).text() == 'Read More' ? "Show Less" : "Read More");
 });
 
+// To modify pulsing effect, look in scripts/pulse.js
